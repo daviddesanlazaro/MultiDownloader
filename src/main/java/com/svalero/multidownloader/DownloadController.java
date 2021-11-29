@@ -4,12 +4,8 @@ import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,13 +21,14 @@ public class DownloadController implements Initializable {
     public ProgressBar pbProgress;
     private String urlText;
     private DownloadTask downloadTask;
-    private Stage stage;
+    private File file;
 
     private static final Logger logger = LogManager.getLogger(DownloadController.class);
 
-    public DownloadController(String urlText) {
+    public DownloadController(String urlText, File file) {
         logger.info("Descarga " + urlText + " creada");
         this.urlText = urlText;
+        this.file = file;
     }
 
     @Override
@@ -43,6 +40,7 @@ public class DownloadController implements Initializable {
     public void start(ActionEvent event) {
         try {
             FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(file);
             File file = fileChooser.showSaveDialog(tfUrl.getScene().getWindow());
             if (file == null)
                 return;

@@ -4,19 +4,13 @@ import com.svalero.multidownloader.util.R;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -28,8 +22,19 @@ public class AppController {
 
     private Map<String, DownloadController> allDownloads;
 
+    @FXML
+    private ScrollPane sp;
+    public File file;
+
     public AppController() {
         allDownloads = new HashMap<>();
+    }
+
+    @FXML
+    private void changeDirectory(ActionEvent event) {
+        DirectoryChooser dirChooser = new DirectoryChooser();
+        Stage stage = (Stage) sp.getScene().getWindow();
+        file = dirChooser.showDialog(stage);
     }
 
     @FXML
@@ -38,15 +43,15 @@ public class AppController {
         tfUrl.clear();
         tfUrl.requestFocus();
 
-        launchDownload(urlText);
+        launchDownload(urlText, file);
     }
 
-    private void launchDownload(String url) {
+    private void launchDownload(String url, File file) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(R.getUI("download.fxml"));
 
-            DownloadController downloadController = new DownloadController(url);
+            DownloadController downloadController = new DownloadController(url, file);
             loader.setController(downloadController);
             VBox downloadBox = loader.load();
 
