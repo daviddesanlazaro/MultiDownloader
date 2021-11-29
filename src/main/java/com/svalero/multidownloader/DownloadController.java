@@ -26,7 +26,7 @@ public class DownloadController implements Initializable {
     private static final Logger logger = LogManager.getLogger(DownloadController.class);
 
     public DownloadController(String urlText, File file) {
-        logger.info("Descarga " + urlText + " creada");
+        logger.info("Creado: " + urlText);
         this.urlText = urlText;
         this.file = file;
     }

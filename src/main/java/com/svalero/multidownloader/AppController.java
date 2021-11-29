@@ -5,9 +5,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -77,5 +82,12 @@ public class AppController {
         // Leo el fichero y cargo cada linea en un List (clase Files)
 
         // Para cada linea, llamar al método launchDownload
+    }
+
+    @FXML
+    public void viewLog(ActionEvent event) throws IOException {
+        Desktop desktop = Desktop.getDesktop();
+        File log = new File("C:/Users/David/IdeaProjects/multidescarga/multidescargas.log");
+        desktop.open(log);
     }
 }
