@@ -21,14 +21,15 @@ public class DownloadController implements Initializable {
     public ProgressBar pbProgress;
     private String urlText;
     private DownloadTask downloadTask;
+    private File defaultFile;
     private File file;
 
     private static final Logger logger = LogManager.getLogger(DownloadController.class);
 
-    public DownloadController(String urlText, File file) {
+    public DownloadController(String urlText, File defaultFile) {
         logger.info("Creado: " + urlText);
         this.urlText = urlText;
-        this.file = file;
+        this.defaultFile = defaultFile;
     }
 
     @Override
@@ -40,8 +41,8 @@ public class DownloadController implements Initializable {
     public void start(ActionEvent event) {
         try {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setInitialDirectory(file);
-            File file = fileChooser.showSaveDialog(tfUrl.getScene().getWindow());
+            fileChooser.setInitialDirectory(defaultFile);
+            file = fileChooser.showSaveDialog(tfUrl.getScene().getWindow());
             if (file == null)
                 return;
 
@@ -76,6 +77,14 @@ public class DownloadController implements Initializable {
     public void stop() {
         if (downloadTask != null)
             downloadTask.cancel();
+    }
+
+    public void delete() {
+        if (file != null) {
+            file.delete();
+        } else {
+
+        }
     }
 
     public String getUrlText() {

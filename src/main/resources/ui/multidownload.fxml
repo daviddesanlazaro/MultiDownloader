@@ -16,6 +16,7 @@
             <Button fx:id="btStopAllDownloads" mnemonicParsing="false" onAction="#stopAllDownloads" prefHeight="24.0" prefWidth="238.0" text="Cancelar todas las descargas" />
             <TabPane fx:id="tpDownloads" prefHeight="313.0" prefWidth="578.0" tabClosingPolicy="UNAVAILABLE" />
             <Button fx:id="btDirectory" mnemonicParsing="false" onAction="#changeDirectory" text="Cambiar directorio" />
+            <Button mnemonicParsing="false" onAction="#readDLC" text="Leer fichero" />
             <Button mnemonicParsing="false" onAction="#viewLog" text="Ver log" />
          </children>
          <padding>

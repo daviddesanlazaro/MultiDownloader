@@ -20,6 +20,7 @@
          <children>
             <Button fx:id="btStart" mnemonicParsing="false" onAction="#start" text="Iniciar" />
             <Button fx:id="btStop" mnemonicParsing="false" onAction="#stop" text="Parar" />
+            <Button mnemonicParsing="false" onAction="#delete" text="Eliminar" />
          </children>
       </HBox>
       <ProgressBar fx:id="pbProgress" prefHeight="40.0" prefWidth="324.0" progress="0.0" />
