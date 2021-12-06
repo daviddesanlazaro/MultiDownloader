@@ -47,13 +47,14 @@ public class DownloadTask extends Task<Integer> {
 
             if (isCancelled()) {
                 logger.trace("Descarga " + url.toString() + " cancelada");
+                fileOutputStream.close();
                 return null;
             }
         }
 
         updateProgress(1, 1);
         updateMessage("100 %");
-
+        fileOutputStream.close();
         logger.trace("Descarga " + url.toString() + " finalizada");
         return null;
     }

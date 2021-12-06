@@ -10,10 +10,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -79,7 +82,20 @@ public class AppController {
     public void readDLC() {
         // Pedir el fichero al usuario (FileChooser)
 
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile == null)
+            return;
+
         // Leo el fichero y cargo cada linea en un List (clase Files)
+        try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
+            String line;
+            while ((line = reader.readLine()) != null)
+                launchDownload(line, file);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Para cada linea, llamar al método launchDownload
     }
