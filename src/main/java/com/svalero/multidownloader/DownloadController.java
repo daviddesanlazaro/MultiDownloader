@@ -17,7 +17,9 @@ import java.util.ResourceBundle;
 public class DownloadController implements Initializable {
 
     public TextField tfUrl;
+    public TextField delay;
     public Label lbStatus;
+    public Label lbDelay;
     public ProgressBar pbProgress;
     private String urlText;
     private DownloadTask downloadTask;
@@ -45,6 +47,13 @@ public class DownloadController implements Initializable {
             file = fileChooser.showSaveDialog(tfUrl.getScene().getWindow());
             if (file == null)
                 return;
+
+            try {
+                int delayTime = delay();
+                Thread.sleep(delayTime * 1000);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
 
             downloadTask = new DownloadTask(urlText, file);
 
@@ -82,12 +91,19 @@ public class DownloadController implements Initializable {
     public void delete() {
         if (file != null) {
             file.delete();
-        } else {
-
         }
     }
 
     public String getUrlText() {
         return urlText;
+    }
+
+    public int delay() {
+        if (delay.getText().equals("")) {
+            return 0;
+        } else {
+            int delayTime = Integer.parseInt(delay.getText());
+            return delayTime;
+        }
     }
 }
