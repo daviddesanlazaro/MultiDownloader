@@ -25,6 +25,7 @@ public class DownloadController implements Initializable {
     private DownloadTask downloadTask;
     private File defaultFile;
     private File file;
+    private AppController controller;
 
     private static final Logger logger = LogManager.getLogger(DownloadController.class);
 
@@ -68,10 +69,9 @@ public class DownloadController implements Initializable {
                     alert.show();
                 }
             });
-
             downloadTask.messageProperty().addListener((observableValue, oldValue, newValue) -> lbStatus.setText(newValue));
-
             new Thread(downloadTask).start();
+
         } catch (MalformedURLException murle) {
             murle.printStackTrace();
             logger.error("URL mal formada", murle.fillInStackTrace());
