@@ -7,9 +7,11 @@ import org.apache.logging.log4j.Logger;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DecimalFormat;
 
 public class DownloadTask extends Task<Integer> {
 
@@ -40,7 +42,11 @@ public class DownloadTask extends Task<Integer> {
         while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
             downloadProgress = ((double) totalRead / fileSize);
             updateProgress(downloadProgress, 1);
-            updateMessage(downloadProgress * 100 + " %");
+
+            DecimalFormat df = new DecimalFormat("##.##");
+            df.setRoundingMode(RoundingMode.DOWN);
+
+            updateMessage(totalRead/1000000 + " MB / " + df.format(downloadProgress * 100) + " %");
 
             fileOutputStream.write(dataBuffer, 0, bytesRead);
             totalRead += bytesRead;
