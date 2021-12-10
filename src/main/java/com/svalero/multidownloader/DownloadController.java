@@ -61,7 +61,7 @@ public class DownloadController implements Initializable {
 
             downloadTask = new DownloadTask(urlText, file);
 
-            pbProgress.progressProperty().unbind();
+
             pbProgress.progressProperty().bind(downloadTask.progressProperty());
 
             downloadTask.stateProperty().addListener((observableValue, oldState, newState) -> {
@@ -87,8 +87,11 @@ public class DownloadController implements Initializable {
     }
 
     public void stop() {
-        if (downloadTask != null)
+        if (downloadTask != null) {
+            pbProgress.progressProperty().unbind();
+            pbProgress.setProgress(0);
             downloadTask.cancel();
+        }
     }
 
     public void delete() {
@@ -105,7 +108,14 @@ public class DownloadController implements Initializable {
         if (delay.getText().equals("")) {
             return 0;
         } else {
-            return Integer.parseInt(delay.getText());
+            try {
+                if (Integer.parseInt(delay.getText()) <= 0) {
+                    return 0;
+                }
+                return Integer.parseInt(delay.getText());
+            } catch (NumberFormatException nfe) {
+                return 0;
+            }
         }
     }
 }
