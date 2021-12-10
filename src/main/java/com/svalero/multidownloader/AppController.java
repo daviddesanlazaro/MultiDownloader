@@ -20,6 +20,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class AppController {
@@ -29,6 +31,8 @@ public class AppController {
     public TabPane tpDownloads;
 
     private Map<String, DownloadController> allDownloads;
+
+    public ExecutorService executor = Executors.newFixedThreadPool(2);
 
     @FXML
     private ScrollPane sp;
@@ -58,8 +62,10 @@ public class AppController {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(R.getUI("download.fxml"));
+            DownloadController downloadController;
 
-            DownloadController downloadController = new DownloadController(url, file);
+            downloadController = new DownloadController(url, file, executor);
+
             loader.setController(downloadController);
             VBox downloadBox = loader.load();
 
@@ -80,14 +86,11 @@ public class AppController {
 
     @FXML
     public void readDLC() {
-        // Pedir el fichero al usuario (FileChooser)
-
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile == null)
             return;
 
-        // Leo el fichero y cargo cada linea en un List (clase Files)
         try (BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
             String line;
             while ((line = reader.readLine()) != null)
@@ -96,8 +99,6 @@ public class AppController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // Para cada linea, llamar al método launchDownload
     }
 
     @FXML

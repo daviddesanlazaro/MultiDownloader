@@ -13,6 +13,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
 
 public class DownloadController implements Initializable {
 
@@ -26,13 +27,15 @@ public class DownloadController implements Initializable {
     private File defaultFile;
     private File file;
     private AppController controller;
+    private ExecutorService exec;
 
     private static final Logger logger = LogManager.getLogger(DownloadController.class);
 
-    public DownloadController(String urlText, File defaultFile) {
+    public DownloadController(String urlText, File defaultFile, ExecutorService exec) {
         logger.info("Creado: " + urlText);
         this.urlText = urlText;
         this.defaultFile = defaultFile;
+        this.exec = exec;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class DownloadController implements Initializable {
                 return;
 
             try {
-                int delayTime = delay();
+                long delayTime = delay();
                 Thread.sleep(delayTime * 1000);
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
@@ -70,7 +73,7 @@ public class DownloadController implements Initializable {
                 }
             });
             downloadTask.messageProperty().addListener((observableValue, oldValue, newValue) -> lbStatus.setText(newValue));
-            new Thread(downloadTask).start();
+            exec.execute(downloadTask);
 
         } catch (MalformedURLException murle) {
             murle.printStackTrace();
@@ -102,8 +105,7 @@ public class DownloadController implements Initializable {
         if (delay.getText().equals("")) {
             return 0;
         } else {
-            int delayTime = Integer.parseInt(delay.getText());
-            return delayTime;
+            return Integer.parseInt(delay.getText());
         }
     }
 }

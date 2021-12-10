@@ -34,7 +34,7 @@ public class DownloadTask extends Task<Integer> {
         double fileSize = urlConnection.getContentLength();
         BufferedInputStream in = new BufferedInputStream(url.openStream());
         FileOutputStream fileOutputStream = new FileOutputStream(file);
-        byte dataBuffer[] = new byte[1024];
+        byte[] dataBuffer = new byte[1024];
         int bytesRead;
         int totalRead = 0;
         double downloadProgress = 0;
