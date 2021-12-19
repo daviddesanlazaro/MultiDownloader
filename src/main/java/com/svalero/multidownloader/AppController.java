@@ -36,7 +36,8 @@ public class AppController {
 
     @FXML
     private ScrollPane sp;
-    public File file;
+    public File defaultFile = new File("C:/Users/David/Downloads");
+    public File file = defaultFile;
 
     public AppController() {
         allDownloads = new HashMap<>();
@@ -45,8 +46,12 @@ public class AppController {
     @FXML
     private void changeDirectory(ActionEvent event) {
         DirectoryChooser dirChooser = new DirectoryChooser();
+        dirChooser.setInitialDirectory(defaultFile);
         Stage stage = (Stage) sp.getScene().getWindow();
         file = dirChooser.showDialog(stage);
+        if (file == null) {
+            file = defaultFile;
+        }
     }
 
     @FXML
