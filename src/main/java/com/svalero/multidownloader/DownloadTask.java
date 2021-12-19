@@ -27,7 +27,7 @@ public class DownloadTask extends Task<Integer> {
 
     @Override
     protected Integer call() throws Exception {
-        logger.trace("Descarga " + url.toString() + " iniciada");
+        logger.info("Iniciado: " + url.toString());
         updateMessage("Conectando con el servidor . . .");
 
         URLConnection urlConnection = url.openConnection();
@@ -52,7 +52,6 @@ public class DownloadTask extends Task<Integer> {
             totalRead += bytesRead;
 
             if (isCancelled()) {
-                logger.trace("Descarga " + url.toString() + " cancelada");
                 updateMessage("");
                 fileOutputStream.close();
                 return null;
@@ -62,7 +61,7 @@ public class DownloadTask extends Task<Integer> {
         updateProgress(1, 1);
         updateMessage("100 %");
         fileOutputStream.close();
-        logger.trace("Descarga " + url.toString() + " finalizada");
+        logger.trace("Finalizado: " + url.toString());
         return null;
     }
 }
