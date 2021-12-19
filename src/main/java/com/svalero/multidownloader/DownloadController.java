@@ -77,7 +77,6 @@ public class DownloadController implements Initializable {
 
         } catch (MalformedURLException murle) {
             murle.printStackTrace();
-            logger.error("URL mal formada", murle.fillInStackTrace());
         }
     }
 
@@ -90,12 +89,14 @@ public class DownloadController implements Initializable {
         if (downloadTask != null) {
             pbProgress.progressProperty().unbind();
             pbProgress.setProgress(0);
+            logger.info("Cancelado: " + urlText);
             downloadTask.cancel();
         }
     }
 
     public void delete() {
         if (file != null) {
+            logger.info("Eliminado: " + urlText);
             file.delete();
         }
     }
