@@ -5,22 +5,45 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fx:id="sp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fx:id="sp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox fx:id="panel" prefWidth="598.0">
          <children>
+            <Button mnemonicParsing="false" onAction="#readDLC" text="Leer fichero">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Button>
             <TextField fx:id="tfUrl" />
-            <Button fx:id="btDownload" mnemonicParsing="false" onAction="#launchDownload" text="Descargar" />
-            <Button fx:id="btStopAllDownloads" mnemonicParsing="false" onAction="#stopAllDownloads" prefHeight="24.0" prefWidth="238.0" text="Cancelar todas las descargas" />
+            <Button fx:id="btDownload" mnemonicParsing="false" onAction="#launchDownload" text="Descargar">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btStopAllDownloads" mnemonicParsing="false" onAction="#stopAllDownloads" prefHeight="24.0" prefWidth="238.0" text="Cancelar todas las descargas">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin></Button>
             <TabPane fx:id="tpDownloads" prefHeight="313.0" prefWidth="578.0" />
-            <Button fx:id="btDirectory" mnemonicParsing="false" onAction="#changeDirectory" text="Cambiar directorio" />
-            <Button mnemonicParsing="false" onAction="#readDLC" text="Leer fichero" />
-            <Button mnemonicParsing="false" onAction="#viewLog" text="Ver log" />
+            <HBox prefHeight="40.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btDirectory" mnemonicParsing="false" onAction="#changeDirectory" text="Cambiar directorio">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#viewLog" text="Ver log" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
          </children>
          <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
          </padding>
       </VBox>
    </content>

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="lbNombre" prefHeight="17.0" prefWidth="311.0" text="Descarga" />
       <TextField fx:id="tfUrl">
@@ -16,21 +16,36 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </TextField>
-      <HBox prefHeight="79.0" prefWidth="154.0">
+      <VBox prefHeight="60.0" prefWidth="100.0">
          <children>
-            <Button fx:id="btStart" mnemonicParsing="false" onAction="#start" text="Iniciar" />
-            <Button fx:id="btStop" mnemonicParsing="false" onAction="#stop" text="Parar" />
+            <Label fx:id="lbDelay" text="Tiempo de espera">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Label>
+            <TextField fx:id="delay">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></TextField>
+         </children>
+      </VBox>
+      <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="154.0">
+         <children>
+            <Button fx:id="btStart" mnemonicParsing="false" onAction="#start" text="Iniciar">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="btStop" mnemonicParsing="false" onAction="#stop" text="Parar">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin></Button>
             <Button mnemonicParsing="false" onAction="#delete" text="Eliminar" />
          </children>
       </HBox>
-      <VBox prefHeight="100.0" prefWidth="100.0">
-         <children>
-            <Label fx:id="lbDelay" text="Tiempo de espera" />
-            <TextField fx:id="delay" />
-         </children>
-      </VBox>
       <ProgressBar fx:id="pbProgress" prefHeight="40.0" prefWidth="324.0" progress="0.0" />
-      <Label fx:id="lbStatus" prefHeight="17.0" prefWidth="325.0" />
+      <Label fx:id="lbStatus" prefHeight="17.0" prefWidth="325.0">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin></Label>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
